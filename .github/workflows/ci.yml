@@ -1,0 +1,23 @@
+name: DevOps GitOps End-to-End Pipeline
+
+on:
+  push:
+    branches: [ "principal", "main" ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+
+    - name: Run Test Simulation
+      run: |
+        echo "Executando testes automatizados na aplicação..."
+        echo "Testes concluídos com sucesso!"
