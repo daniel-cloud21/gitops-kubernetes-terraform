@@ -1,0 +1,30 @@
+name: DevOps GitOps End-to-End Pipeline
+
+on:
+  push:
+    branches: [ "principal" ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+
+    - name: Install dependencies
+      run: |
+        cd app
+        npm install
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build Docker Image
+      run: |
+        docker build -t meu-usuario-docker/gitops-api-app:${{ github.sha }} .
